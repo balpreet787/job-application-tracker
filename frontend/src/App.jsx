@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "./components/header";
 import DashboardCard from "./components/dashboardCard";
 import { FolderOpen, Send, Loader, Award, CircleOff} from "lucide-react";
+import Page from "./jobRecords/page"
+
 
 function App() {
   const [totalApplications, setTotalApplications] = useState(0);
@@ -11,7 +13,7 @@ function App() {
   const [rejectedApplications, setRejectedApplications] = useState(0);
 
   return (
-    <div>
+    <>
       <div>
         <Header />
       </div>
@@ -22,7 +24,8 @@ function App() {
         <DashboardCard title="Offered" value={offeredApplications} icon={Award} />
         <DashboardCard title="Rejected" value={rejectedApplications} icon={CircleOff} />
       </div>
-    </div>
+      <Page />
+    </>
   );
 }
 

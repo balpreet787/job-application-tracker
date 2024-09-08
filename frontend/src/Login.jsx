@@ -1,28 +1,17 @@
-import { useState, useEffect } from "react";
+import { redirect } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { redirect } from "react-router-dom";
+import { useSession } from "./context/SessionContext";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 export default function App() {
-  const [session, setSession] = useState(null);
+  const { session } = useSession();
 
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-    return () => subscription.unsubscribe();
-  }, []);
   if (!session) {
     return (
       <div
@@ -47,12 +36,7 @@ export default function App() {
   } else {
     const token = session.access_token;
     sendTokenToBackend(token);  
-    return (
-      <div>
-        <div>Logged in!</div>
-        <button onClick={() => supabase.auth.signOut()}>Sign out</button>
-      </div>
-    );
+    return redirect("/");
   }
 }
 
@@ -66,6 +50,6 @@ const sendTokenToBackend = async (token) => {
     });
   
     const data = await response.json();
-    console.log(data); // This would be some response from your server
+    console.log(data);
   };
   

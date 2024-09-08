@@ -1,19 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, redirect } from "react-router-dom";
 import Login from "./Login";
-
-
+import { useEffect, useState } from "react";
+import Navbar from "./Navbar";
+import { useSession } from "./context/SessionContext";
 
 function App() {
 
-  return (
-    <>
-      <BrowserRouter>
+  const { session, setSession } = useSession();
+
+  if (!session) {
+    return (
+      <>
         <Routes>
+
           <Route path="/" element={<Login />} />
         </Routes>
-      </BrowserRouter>
-    </>
-  )
+
+      </>
+    )
+  }
+  else {
+    return (
+      <>
+        <Routes>
+
+          <Route path="/" element={<Navbar />} />
+        </Routes>
+
+      </>
+    )
+  }
 }
+
 
 export default App

@@ -13,8 +13,10 @@ const corsOptions = {
     credentials: true 
   };
 
-  app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -27,8 +29,9 @@ app.use(session({
   
 
 const authRoutes = require('./routes/auth');
+const crudRoutes = require('./routes/crud');
 app.use('/', authRoutes);
-
+app.use('/', crudRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

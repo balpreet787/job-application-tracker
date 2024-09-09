@@ -1,17 +1,13 @@
 const express = require('express');
-const { createClient } = require('@supabase/supabase-js');
 const router = express.Router();
+const supabaseClient = require('../utils/supabase');
 
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_ANON_KEY 
-  );
   
 
 
   router.post('/session', async (req, res) => {
     const { token } = req.body;
-  
+    supabase = supabaseClient();
     const { data: { user }, error } = await supabase.auth.getUser(token);
   
     if (error) {

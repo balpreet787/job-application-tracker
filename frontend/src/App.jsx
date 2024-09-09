@@ -24,7 +24,9 @@ function App() {
         <DashboardCard title="Offered" value={offeredApplications} icon={Award} />
         <DashboardCard title="Rejected" value={rejectedApplications} icon={CircleOff} />
       </div>
-      <Page />
+      <div className="flex justify-center px-4">
+        <Page />
+      </div>
     </>
   );
 }

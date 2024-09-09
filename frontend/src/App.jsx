@@ -3,7 +3,7 @@ import Header from "./components/header";
 import DashboardCard from "./components/dashboardCard";
 import { FolderOpen, Send, Loader, Award, CircleOff} from "lucide-react";
 import Page from "./jobRecords/page"
-
+import InputBar from "./components/inputBar"
 
 function App() {
   const [totalApplications, setTotalApplications] = useState(0);
@@ -13,21 +13,22 @@ function App() {
   const [rejectedApplications, setRejectedApplications] = useState(0);
 
   return (
-    <>
-      <div>
-        <Header />
-      </div>
-      <div className="flex gap-4 p-4">
-        <DashboardCard title="Total" value={totalApplications} icon={FolderOpen} />
-        <DashboardCard title="Applied" value={appliedApplications} icon={Send} />
-        <DashboardCard title="Pending" value={pendingApplications} icon={Loader} />
-        <DashboardCard title="Offered" value={offeredApplications} icon={Award} />
-        <DashboardCard title="Rejected" value={rejectedApplications} icon={CircleOff} />
-      </div>
-      <div className="flex justify-center px-4">
-        <Page />
-      </div>
-    </>
+    <div className="flex flex-col gap-4">
+    <Header />
+    <div className="flex gap-4 px-4">
+      <DashboardCard title="Total" value={totalApplications} icon={FolderOpen} />
+      <DashboardCard title="Applied" value={appliedApplications} icon={Send} />
+      <DashboardCard title="Pending" value={pendingApplications} icon={Loader} />
+      <DashboardCard title="Offered" value={offeredApplications} icon={Award} />
+      <DashboardCard title="Rejected" value={rejectedApplications} icon={CircleOff} />
+    </div>
+    <div className="flex gap-4 px-4">
+      <InputBar />
+    </div>
+    <div className="flex justify-center px-4 mb-4">
+      <Page />
+    </div>
+  </div>
   );
 }
 

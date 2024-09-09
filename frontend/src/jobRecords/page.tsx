@@ -147,7 +147,7 @@ export default function DemoPage() {
   }, []);
 
   return (
-    <div className="container min-w-full rounded-md">
+    <div className="container min-w-full p-4 rounded-md">
       <DataTable columns={columns} data={data} />
     </div>
   );

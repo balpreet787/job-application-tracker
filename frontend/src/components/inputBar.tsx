@@ -65,12 +65,12 @@ export default function ProfileForm() {
           render={({ field }) => {
             return (
               <FormItem className="flex flex-col justify-start basis-1/5">
-                <FormLabel>
+                <FormLabel className="font-bold text-primary">
                   Date
                 </FormLabel>
                 <FormControl>
                   <Popover>
-                    <PopoverTrigger asChild>
+                    <PopoverTrigger asChild className="text-primary">
                       <FormControl>
                         <Button
                           variant={"outline"}
@@ -109,7 +109,7 @@ export default function ProfileForm() {
           render={({ field }) => {
             return (
               <FormItem className="basis-1/3">
-                <FormLabel>
+                <FormLabel className="font-bold text-primary">
                   Job Title
                 </FormLabel>
                 <FormControl>
@@ -130,7 +130,7 @@ export default function ProfileForm() {
           render={({ field }) => {
             return (
               <FormItem className="basis-1/5">
-                <FormLabel>
+                <FormLabel className="font-bold text-primary">
                   Company Name
                 </FormLabel>
                 <FormControl>
@@ -151,7 +151,7 @@ export default function ProfileForm() {
           render={({ field }) => {
             return (
               <FormItem className="basis-1/5">
-                <FormLabel>
+                <FormLabel className="font-bold text-primary">
                   Status
                 </FormLabel>
                 <FormControl>

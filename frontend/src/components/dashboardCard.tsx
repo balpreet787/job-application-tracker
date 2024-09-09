@@ -8,7 +8,7 @@ interface DashboardCardProps {
 
 export default function DashboardCard({ title, value, icon: Icon }: DashboardCardProps) {
   return (
-    <Card className="basis-1/5">
+    <Card className="basis-1/5 border-muted-primary">
       <CardHeader className="flex flex-row items-center pb-8">
         <Icon className="size-6"/>
         <span className="font-semibold text-xl pb-2 pl-2">{title}</span>

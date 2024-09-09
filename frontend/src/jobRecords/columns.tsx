@@ -33,8 +33,8 @@ export const columns: ColumnDef<JobRecord>[] = [
             size="noPadding"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Deadline
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <h1 className="text-muted-foreground">Dealine</h1>
+            <ArrowUpDown className="ml-2 h-4 w-4 text-muted-foreground" />
           </Button>
         </div>
       )
@@ -52,24 +52,24 @@ export const columns: ColumnDef<JobRecord>[] = [
   {
     accessorKey: "title",
     header: () => {
-      return (<div className="font-bold text-black">Job Title</div>)
+      return (<h1 className="font-bold">Job Title</h1>)
     },
     cell: ({ row }) => {
-      return (<div className="font-bold">{row.getValue("title")}</div>)
+      return (<h1 className="font-bold text-primary">{row.getValue("title")}</h1>)
     },
   },
   {
     accessorKey: "company",
-    header: () => <div className="font-medium">Company</div>,
+    header: () => <h1 className="font-medium text-muted-foreground">Company</h1>,
     cell: ({ row }) => {
       const name = row.getValue("company")
-      return <div className="text-muted-foreground font-medium">{name}</div>
+      return <h1 className="text-muted-foreground font-medium">{name}</h1>
     }
   },
   {
     accessorKey: "status",
     header: () => {
-      return (<div className="font-bold text-black">Status</div>)
+      return (<h1 className="font-bold text-primary">Status</h1>)
     },
     cell: ({ row }) => {
       const status = row.getValue("status");
@@ -89,7 +89,7 @@ export const columns: ColumnDef<JobRecord>[] = [
           color = "text-green-500"
           break;
       }
-      return <div className={`font-medium ${color}`}>{status.charAt(0).toUpperCase() + status.slice(1)}</div>;
+      return <h1 className={`font-medium ${color}`}>{status.charAt(0).toUpperCase() + status.slice(1)}</h1>;
     }
   },
   {

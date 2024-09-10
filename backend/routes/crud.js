@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 
 const supabaseClient = require('../utils/supabase');
+
+router.use(cors())
 
 router.post('/create', async (req, res) => {
     const { title, deadline, company, status} = req.body;
@@ -22,11 +25,13 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/read', async (req, res) => {
+    const userID = req.query.user
+    console.log(`user is trying to fetch data with id ${userID}`)
     const supabase = supabaseClient();
     const { data, error } = await supabase
         .from('job_applications')
         .select()
-        .eq('user_id', userId);
+        .eq('user_id', userID);
     if (error) {
         return res.status(400).json({ error: error.message });
     }

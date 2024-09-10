@@ -26,7 +26,17 @@ export default function App() {
         <div>
           <Auth
             supabaseClient={supabase}
-            appearance={{ theme: ThemeSupa }}
+            appearance={{
+              theme: ThemeSupa,
+              variables: {
+                default: {
+                  colors: {
+                    brand: 'blue',
+                    brandAccent: 'darkblue',
+                  },
+                },
+              },
+            }}
             providers={["google"]}
           />
         </div>

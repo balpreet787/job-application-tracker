@@ -46,9 +46,12 @@ function App() {
   if (!session) {
     return (
       <>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Header />
         <Routes>
           <Route path="/" element={<Login />} />
         </Routes>
+        </ThemeProvider>
       </>
     );
   }

@@ -24,7 +24,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Card } from "@/components/ui/card"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -40,7 +39,6 @@ export function DataTable<TData, TValue>({
     []
   )
   
-
   const table = useReactTable({
     data,
     columns,
@@ -59,7 +57,6 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className=" px-4 pt-4 rounded-md border">
-      {/* Search bard */}
       <div className="flex items-center">
         <Input
           placeholder="Search title..."
@@ -114,7 +111,6 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       
-      {/* Pagination */}
       <div className="mt-4">
         <DataTablePagination table={table}/>
       </div>

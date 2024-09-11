@@ -7,18 +7,20 @@ const supabaseClient = require('../utils/supabase');
 router.use(cors())
 
 router.post('/create', async (req, res) => {
-    const { title, deadline, company, status} = req.body;
+    console.log('create job application')
+    const { title, date, company, status, userID} = req.body;
     const supabase = supabaseClient();
     const { data, error } = await supabase
         .from('job_applications')
         .insert([{ 
-            job_title: title,
-            deadline: deadline,
+            title: title,
+            date: date,
             company: company,
             status: status,
-            user_id: userId
+            userID: userID
          }]);
     if (error) {
+        console.log(error)
         return res.status(400).json({ error: error.message });
     }
     res.json(data);
@@ -31,41 +33,46 @@ router.get('/read', async (req, res) => {
     const { data, error } = await supabase
         .from('job_applications')
         .select()
-        .eq('user_id', userID);
+        .eq('userID', userID);
     if (error) {
+        console.log(error)
         return res.status(400).json({ error: error.message });
     }
     res.json(data);
 });
 
 router.post('/update', async (req, res) => {
-    const { id, title, deadline, company, status } = req.body;
+    const { id, title, date, company, status, userID } = req.body;
+    console.log(id, title, date, company, status, userID)
     const supabase = supabaseClient();
     const { data, error } = await supabase
         .from('job_applications')
-        .update({ 
-            job_title: title,
-            deadline: deadline,
+        .update({
+            title: title,
+            date: date,
             company: company,
-            status: status
+            status: status,
+            userID: userID
         })
         .eq('id', id)
-        .eq('user_id', req.session.user.id);
+        .eq('userID', userID);
     if (error) {
+        console.log(error)
         return res.status(400).json({ error: error.message });
     }
     res.json(data);
 });
 
 router.post('/delete', async (req, res) => {
-    const { id } = req.body;
+    const { id, userID } = req.body;
     const supabase = supabaseClient();
     const { data, error } = await supabase
         .from('job_applications')
         .delete()
         .eq('id', id)
-        .eq('user_id', req.session.user.id);
+        .eq('userID', userID);
     if (error) {
+        console.log(error)
         return res.status(400).json({ error: error.message });
     }
     res.json(data);

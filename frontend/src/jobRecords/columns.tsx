@@ -1,10 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, ArrowUpDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { JobRecord } from "../types/jobRecord";
 
-export const columns = (handleEdit: (record: JobRecord) => void): ColumnDef<JobRecord>[] => [
+export const columns = (handleEdit: (record: JobRecord) => void, handleDelete: (record: JobRecord) => void): ColumnDef<JobRecord>[] => [
   {
     accessorKey: "date",
     header: ({ column }) => (
@@ -17,7 +17,7 @@ export const columns = (handleEdit: (record: JobRecord) => void): ColumnDef<JobR
           <h1 className="text-muted-foreground">Deadline</h1>
           <ArrowUpDown className="ml-2 h-4 w-4 text-muted-foreground" />
         </Button>
-      </div>
+      </div>  
     ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("date"));
@@ -79,7 +79,8 @@ export const columns = (handleEdit: (record: JobRecord) => void): ColumnDef<JobR
             <DropdownMenuItem onClick={() => handleEdit(job)}>
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleDelete(job)}>
+              Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useSession } from "./context/SessionContext";
+import { useSession } from "./context/sessionContext";
 import { ThemeProvider } from "@/components/theme-provider";
 import Login from "./Login";
 import Header from "./components/header";
 import DashboardCard from "./components/dashboardCard";
 import { FolderOpen, Send, Loader, Award, CircleOff } from "lucide-react";
-import DemoPage from "./jobRecords/page"; // Adjust import path as needed
+import Page from "./jobRecords/page"; // Adjust import path as needed
 import InputBar from "./components/inputBar";
 
 async function getData(userID) {
@@ -19,7 +19,7 @@ async function getData(userID) {
     return data;  
   } catch (error) {
     console.error('Error fetching data:', error);
-    return []; // Return an empty array if there is an error
+    return [];
   }
 }
 
@@ -30,29 +30,67 @@ function App() {
   const [pendingApplications, setPendingApplications] = useState(0);
   const [offeredApplications, setOfferedApplications] = useState(0);
   const [rejectedApplications, setRejectedApplications] = useState(0);
+  const [userID, setUserID] = useState();
   const { session } = useSession();
 
   useEffect(() => {
-    if (session) {
-      getData(session.user.id).then((data) => {
-        setJobRecords(data);
-        console.log(data)
-      }).catch(err => {
-        console.error('Error fetching data:', err);
-      });
+    if (session?.user?.id) {
+      setUserID(session.user.id);
     }
   }, [session]);
 
+  useEffect(() => {
+    if (userID) {
+      console.log('Fetching data for user:', userID)
+      getData(userID)
+        .then((data) => {
+          console.log('Data fetched:', data);
+          setJobRecords(data);
+        })
+        .catch(err => {
+          console.error('Error fetching data:', err);
+        });
+    }
+  }, [userID])
+
+  useEffect(() => {
+    const total = jobRecords.length;
+    const applied = jobRecords.filter(job => job.status === 'applied').length;
+    const pending = jobRecords.filter(job => job.status === 'pending').length;
+    const offered = jobRecords.filter(job => job.status === 'offered').length;
+    const rejected = jobRecords.filter(job => job.status === 'rejected').length;
+
+    setTotalApplications(total);
+    setAppliedApplications(applied);
+    setPendingApplications(pending);
+    setOfferedApplications(offered);
+    setRejectedApplications(rejected);
+  }, [jobRecords]);
+
+  useEffect(() => {
+  const total = jobRecords.length;
+  const applied = jobRecords.filter(job => job.status === 'applied').length;
+  const pending = jobRecords.filter(job => job.status === 'pending').length;
+  const offered = jobRecords.filter(job => job.status === 'offered').length;
+  const rejected = jobRecords.filter(job => job.status === 'rejected').length;
+
+  setTotalApplications(total);
+  setAppliedApplications(applied);
+  setPendingApplications(pending);
+  setOfferedApplications(offered);
+  setRejectedApplications(rejected);
+}, [jobRecords]); // Depend on jobRecords for derived state calculations
+
+  
+
   if (!session) {
     return (
-      <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Header />
+        <Header />
         <Routes>
           <Route path="/" element={<Login />} />
         </Routes>
-        </ThemeProvider>
-      </>
+      </ThemeProvider>
     );
   }
 
@@ -68,10 +106,10 @@ function App() {
           <DashboardCard title="Rejected" value={rejectedApplications} icon={CircleOff} />
         </div>
         <div className="flex gap-4 px-4">
-          <InputBar />
+          <InputBar userID={session.user.id} />
         </div>
         <div className="flex justify-center mb-4">
-          <DemoPage jobRecords={jobRecords} />
+          <Page jobRecords={jobRecords} userID={userID}/>
         </div>
       </div>
     </ThemeProvider>

@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function RowAction({ record, handleEdit }: { record: JobRecord, handleEdit: (record: JobRecord) => void }) {
+export function RowAction({ record, handleEdit, handleDelete }: { record: JobRecord, handleEdit: (record: JobRecord) => void, handleDelete: (record: JobRecord) => void }) {
   return (
     <DropdownMenu>
     <DropdownMenuTrigger asChild>
@@ -22,7 +22,7 @@ export function RowAction({ record, handleEdit }: { record: JobRecord, handleEdi
       <DropdownMenuItem onClick={() => handleEdit(record)}>
         Edit
       </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => console.log(record.title)}>
+      <DropdownMenuItem onClick={() => handleDelete(record)}>
         Delete
       </DropdownMenuItem>
     </DropdownMenuContent>

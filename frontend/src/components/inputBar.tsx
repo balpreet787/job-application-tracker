@@ -40,7 +40,7 @@ const formSchema = z.object({
   status: z.enum(['applied', 'rejected', 'offered', 'pending']),
 })
 
-export default function ProfileForm() {
+export default function ProfileForm({onButtonClick}) {
   const { session } = useSession(); // Access the session context here
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -178,7 +178,7 @@ export default function ProfileForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Add</Button>
+        <Button onClick={() => onButtonClick()} type="submit">Add</Button>
       </form>
     </Form>
   )
